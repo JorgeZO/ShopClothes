@@ -53,6 +53,19 @@ async function uniqueSlug(
   }
 }
 
+// Confirma que hay una sesión válida antes de escribir. Devuelve un error claro
+// en vez de fallar en silencio (que es lo que pasa cuando RLS bloquea por falta
+// de sesión: la operación "tiene éxito" pero no afecta ninguna fila).
+async function requireUser(supabase: ReturnType<typeof createClient>) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return user;
+}
+
+const NO_SESSION =
+  "Tu sesión expiró. Cierra sesión y vuelve a entrar al panel para continuar.";
+
 export async function createProduct(formData: FormData): Promise<ActionResult> {
   if (!isSupabaseConfigured) {
     return { ok: false, error: "Supabase no está configurado. Revisa el README." };
@@ -61,10 +74,17 @@ export async function createProduct(formData: FormData): Promise<ActionResult> {
   if (!input.name) return { ok: false, error: "El nombre es obligatorio." };
 
   const supabase = createClient();
+  if (!(await requireUser(supabase))) return { ok: false, error: NO_SESSION };
+
   const slug = await uniqueSlug(supabase, slugify(input.name));
 
-  const { error } = await supabase.from("products").insert({ ...input, slug });
+  const { data, error } = await supabase
+    .from("products")
+    .insert({ ...input, slug })
+    .select("id");
   if (error) return { ok: false, error: error.message };
+  if (!data || data.length === 0)
+    return { ok: false, error: "No se pudo crear el producto (permisos/RLS)." };
 
   revalidatePath("/");
   revalidatePath("/admin");
@@ -82,13 +102,18 @@ export async function updateProduct(
   if (!input.name) return { ok: false, error: "El nombre es obligatorio." };
 
   const supabase = createClient();
+  if (!(await requireUser(supabase))) return { ok: false, error: NO_SESSION };
+
   const slug = await uniqueSlug(supabase, slugify(input.name), id);
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("products")
     .update({ ...input, slug })
-    .eq("id", id);
+    .eq("id", id)
+    .select("id");
   if (error) return { ok: false, error: error.message };
+  if (!data || data.length === 0)
+    return { ok: false, error: "No se pudo guardar (permisos/RLS)." };
 
   revalidatePath("/");
   revalidatePath("/admin");
@@ -100,8 +125,19 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
     return { ok: false, error: "Supabase no está configurado." };
   }
   const supabase = createClient();
-  const { error } = await supabase.from("products").delete().eq("id", id);
+  if (!(await requireUser(supabase))) return { ok: false, error: NO_SESSION };
+
+  const { data, error } = await supabase
+    .from("products")
+    .delete()
+    .eq("id", id)
+    .select("id");
   if (error) return { ok: false, error: error.message };
+  if (!data || data.length === 0)
+    return {
+      ok: false,
+      error: "No se borró ninguna fila. Revisa que tengas sesión activa.",
+    };
 
   revalidatePath("/");
   revalidatePath("/admin");
@@ -116,11 +152,16 @@ export async function toggleActive(
     return { ok: false, error: "Supabase no está configurado." };
   }
   const supabase = createClient();
-  const { error } = await supabase
+  if (!(await requireUser(supabase))) return { ok: false, error: NO_SESSION };
+
+  const { data, error } = await supabase
     .from("products")
     .update({ is_active: next })
-    .eq("id", id);
+    .eq("id", id)
+    .select("id");
   if (error) return { ok: false, error: error.message };
+  if (!data || data.length === 0)
+    return { ok: false, error: "No se pudo actualizar (permisos/RLS)." };
 
   revalidatePath("/");
   revalidatePath("/admin");

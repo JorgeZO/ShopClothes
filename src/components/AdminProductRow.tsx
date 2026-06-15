@@ -2,13 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { deleteProduct, toggleActive } from "@/app/admin/actions";
 import { formatPrice } from "@/lib/format";
 import type { Product } from "@/lib/types";
 
 export default function AdminProductRow({ product }: { product: Product }) {
+  const router = useRouter();
   const [active, setActive] = useState(product.is_active);
+  const [removed, setRemoved] = useState(false);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const cover = product.image_urls?.[0];
@@ -22,6 +25,8 @@ export default function AdminProductRow({ product }: { product: Product }) {
       if (!res.ok) {
         setActive(!next);
         setError(res.error ?? "No se pudo actualizar.");
+      } else {
+        router.refresh();
       }
     });
   }
@@ -32,9 +37,16 @@ export default function AdminProductRow({ product }: { product: Product }) {
     setError(null);
     startTransition(async () => {
       const res = await deleteProduct(product.id);
-      if (!res.ok) setError(res.error ?? "No se pudo borrar.");
+      if (!res.ok) {
+        setError(res.error ?? "No se pudo borrar.");
+      } else {
+        setRemoved(true); // quita la fila al instante
+        router.refresh(); // sincroniza con el servidor
+      }
     });
   }
+
+  if (removed) return null;
 
   return (
     <li className="flex items-center gap-4 p-3 sm:p-4">

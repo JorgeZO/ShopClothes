@@ -17,12 +17,6 @@ export default function Navbar() {
           <Link href="/" className="hover:text-brand-600 transition-colors">
             Catálogo
           </Link>
-          <Link
-            href="/admin"
-            className="hover:text-brand-600 transition-colors"
-          >
-            Admin
-          </Link>
         </nav>
       </div>
     </header>
