@@ -40,24 +40,38 @@ export default async function ProductPage({
         <div className="mx-auto max-w-6xl px-4 py-8">
           <Link
             href="/"
-            className="text-sm text-zinc-500 hover:text-brand-600 transition-colors"
+            className="inline-flex items-center gap-1 text-sm font-medium text-zinc-500 transition-colors hover:text-brand-700"
           >
             ← Volver al catálogo
           </Link>
 
-          <div className="mt-6 grid gap-8 lg:grid-cols-2">
-            <ProductGallery images={product.image_urls} alt={product.name} />
+          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-12">
+            <div className="animate-fade-up">
+              <ProductGallery images={product.image_urls} alt={product.name} />
+            </div>
 
             <div className="lg:py-4">
-              <p className="text-sm font-medium text-brand-600">
+              <span className="inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-700">
                 {product.category}
-              </p>
-              <h1 className="mt-1 text-3xl font-extrabold tracking-tight text-zinc-900">
+              </span>
+              <h1 className="mt-3 text-3xl font-black tracking-tight text-zinc-900 sm:text-4xl">
                 {product.name}
               </h1>
-              <p className="mt-3 text-3xl font-bold text-zinc-900">
+              <p className="mt-3 text-3xl font-extrabold text-gradient">
                 {formatPrice(product.price_cents)}
               </p>
+
+              {!soldOut ? (
+                <p className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                  Disponible
+                </p>
+              ) : (
+                <p className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500">
+                  <span className="h-2 w-2 rounded-full bg-zinc-400" />
+                  Agotado por ahora
+                </p>
+              )}
 
               {product.description && (
                 <p className="mt-5 whitespace-pre-line leading-relaxed text-zinc-600">
@@ -74,7 +88,7 @@ export default async function ProductPage({
                     {product.sizes.map((s) => (
                       <span
                         key={s}
-                        className="rounded-lg border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-700"
+                        className="min-w-[2.75rem] rounded-xl border border-zinc-200 bg-white px-3 py-2 text-center text-sm font-semibold text-zinc-800"
                       >
                         {s}
                       </span>
@@ -88,6 +102,28 @@ export default async function ProductPage({
                 <p className="mt-2 text-center text-xs text-zinc-400">
                   Te responderemos para coordinar pago y envío.
                 </p>
+              </div>
+
+              {/* Garantías / confianza */}
+              <div className="mt-8 grid grid-cols-3 gap-3 border-t border-zinc-200 pt-6 text-center">
+                <div>
+                  <p className="text-lg">💬</p>
+                  <p className="mt-1 text-xs font-medium text-zinc-600">
+                    Atención directa
+                  </p>
+                </div>
+                <div>
+                  <p className="text-lg">🚚</p>
+                  <p className="mt-1 text-xs font-medium text-zinc-600">
+                    Coordinamos envío
+                  </p>
+                </div>
+                <div>
+                  <p className="text-lg">✨</p>
+                  <p className="mt-1 text-xs font-medium text-zinc-600">
+                    Prendas con cariño
+                  </p>
+                </div>
               </div>
             </div>
           </div>
