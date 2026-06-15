@@ -22,7 +22,7 @@ export default function WhatsAppButton({
     return (
       <button
         disabled
-        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-200 px-5 py-3 font-semibold text-zinc-500 cursor-not-allowed"
+        className="inline-flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-zinc-500"
       >
         Agotado por ahora
       </button>

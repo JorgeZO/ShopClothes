@@ -37,7 +37,7 @@ export default function SearchFilters({
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+          className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500"
         >
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.3-4.3" />
@@ -47,17 +47,17 @@ export default function SearchFilters({
           defaultValue={query}
           placeholder="Buscar prendas…"
           onChange={(e) => updateParams({ q: e.target.value })}
-          className="w-full rounded-2xl border border-zinc-200 bg-white/80 py-3 pl-11 pr-4 text-sm shadow-sm outline-none backdrop-blur transition-all focus:border-brand-400 focus:ring-4 focus:ring-brand-100"
+          className="w-full rounded-2xl border border-white/10 bg-white/5 py-3 pl-11 pr-4 text-sm text-white placeholder-zinc-500 outline-none transition-all focus:border-brand-400/60 focus:ring-4 focus:ring-brand-500/15"
         />
       </div>
 
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => updateParams({ category: "" })}
-          className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
+          className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-all ${
             activeCategory === ""
-              ? "bg-gradient-to-r from-brand-600 to-accent-500 text-white shadow-soft"
-              : "border border-zinc-200 bg-white/70 text-zinc-700 hover:border-brand-300 hover:text-brand-700"
+              ? "bg-gradient-to-r from-brand-500 to-accent-500 text-ink-950 shadow-soft"
+              : "border border-white/10 bg-white/5 text-zinc-300 hover:border-brand-400/40 hover:text-white"
           }`}
         >
           Todo
@@ -66,10 +66,10 @@ export default function SearchFilters({
           <button
             key={cat}
             onClick={() => updateParams({ category: cat })}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
+            className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-all ${
               activeCategory === cat
-                ? "bg-gradient-to-r from-brand-600 to-accent-500 text-white shadow-soft"
-                : "border border-zinc-200 bg-white/70 text-zinc-700 hover:border-brand-300 hover:text-brand-700"
+                ? "bg-gradient-to-r from-brand-500 to-accent-500 text-ink-950 shadow-soft"
+                : "border border-white/10 bg-white/5 text-zinc-300 hover:border-brand-400/40 hover:text-white"
             }`}
           >
             {cat}

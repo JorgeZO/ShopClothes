@@ -10,9 +10,9 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/producto/${product.slug}`}
-      className="group relative block overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-glow"
+      className="group relative block overflow-hidden rounded-2xl border border-white/10 bg-ink-900/60 transition-all duration-300 hover:-translate-y-1 hover:border-brand-400/40 hover:shadow-glow"
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-zinc-100 to-zinc-200">
+      <div className="relative aspect-[4/5] overflow-hidden bg-ink-800">
         {cover ? (
           <Image
             src={cover}
@@ -22,34 +22,30 @@ export default function ProductCard({ product }: { product: Product }) {
             className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-sm text-zinc-400">
+          <div className="flex h-full items-center justify-center text-sm text-zinc-600">
             Sin imagen
           </div>
         )}
 
-        {/* Velo inferior para legibilidad al hover */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-90" />
 
         {soldOut ? (
-          <span className="absolute left-3 top-3 rounded-full bg-zinc-900/85 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur">
+          <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur">
             Agotado
           </span>
         ) : (
-          <span className="absolute left-3 top-3 rounded-full bg-white/85 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand-700 backdrop-blur">
+          <span className="absolute left-3 top-3 rounded-full border border-brand-400/30 bg-black/50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-300 backdrop-blur">
             {product.category}
           </span>
         )}
 
-        {/* Pista de "ver" al hover */}
-        <span className="absolute bottom-3 left-1/2 -translate-x-1/2 translate-y-3 rounded-full bg-white/90 px-4 py-1.5 text-xs font-semibold text-zinc-900 opacity-0 shadow-sm backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+        <span className="absolute bottom-3 left-1/2 -translate-x-1/2 translate-y-3 rounded-full bg-white px-4 py-1.5 text-xs font-bold text-ink-950 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
           Ver detalles
         </span>
       </div>
 
       <div className="p-3.5">
-        <h3 className="line-clamp-1 font-semibold text-zinc-900">
-          {product.name}
-        </h3>
+        <h3 className="line-clamp-1 font-semibold text-white">{product.name}</h3>
         <p className="mt-1 text-lg font-extrabold text-gradient">
           {formatPrice(product.price_cents)}
         </p>

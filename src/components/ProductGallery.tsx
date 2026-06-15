@@ -15,7 +15,7 @@ export default function ProductGallery({
 
   return (
     <div>
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-zinc-100">
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 bg-ink-800">
         {has ? (
           <Image
             src={images[active]}
@@ -26,7 +26,7 @@ export default function ProductGallery({
             className="object-cover"
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-zinc-400">
+          <div className="flex h-full items-center justify-center text-zinc-600">
             Sin imagen
           </div>
         )}
@@ -39,7 +39,7 @@ export default function ProductGallery({
               key={img + i}
               onClick={() => setActive(i)}
               className={`relative h-20 w-16 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-colors ${
-                i === active ? "border-brand-600" : "border-transparent"
+                i === active ? "border-brand-400" : "border-white/10"
               }`}
             >
               <Image

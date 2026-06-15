@@ -5,31 +5,40 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Verde esmeralda como color principal de marca
         brand: {
-          50: "#f5f3ff",
-          100: "#ede9fe",
-          200: "#ddd6fe",
-          300: "#c4b5fd",
-          400: "#a78bfa",
-          500: "#8b5cf6",
-          600: "#7c3aed",
-          700: "#6d28d9",
-          800: "#5b21b6",
-          900: "#4c1d95",
+          50: "#ecfdf5",
+          100: "#d1fae5",
+          200: "#a7f3d0",
+          300: "#6ee7b7",
+          400: "#34d399",
+          500: "#10b981",
+          600: "#059669",
+          700: "#047857",
+          800: "#065f46",
+          900: "#064e3b",
         },
+        // Acento azul-cian
         accent: {
-          400: "#f472b6",
-          500: "#ec4899",
-          600: "#db2777",
+          400: "#22d3ee",
+          500: "#06b6d4",
+          600: "#0891b2",
+        },
+        // Superficies oscuras
+        ink: {
+          950: "#08090b",
+          900: "#0e0f12",
+          800: "#15171b",
+          700: "#1e2127",
         },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        soft: "0 10px 40px -15px rgba(76, 29, 149, 0.25)",
-        card: "0 8px 30px -12px rgba(24, 24, 27, 0.15)",
-        glow: "0 0 0 1px rgba(124,58,237,0.1), 0 12px 40px -12px rgba(124,58,237,0.35)",
+        soft: "0 10px 40px -15px rgba(16, 185, 129, 0.35)",
+        card: "0 8px 30px -12px rgba(0, 0, 0, 0.6)",
+        glow: "0 0 0 1px rgba(16,185,129,0.25), 0 18px 50px -16px rgba(16,185,129,0.45)",
       },
       keyframes: {
         fadeUp: {
@@ -43,7 +52,7 @@ const config: Config = {
       },
       animation: {
         "fade-up": "fadeUp 0.5s ease-out both",
-        floaty: "floaty 6s ease-in-out infinite",
+        floaty: "floaty 7s ease-in-out infinite",
       },
     },
   },
