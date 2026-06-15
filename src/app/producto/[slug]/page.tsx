@@ -82,7 +82,7 @@ export default async function ProductPage({
               {product.sizes.length > 0 && (
                 <div className="mt-6">
                   <p className="text-sm font-semibold text-white">
-                    Tallas disponibles
+                    Opciones disponibles
                   </p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {product.sizes.map((s) => (

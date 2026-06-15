@@ -57,7 +57,7 @@ export default function ProductForm({ mode, action, product }: Props) {
           name="description"
           rows={4}
           defaultValue={product?.description}
-          placeholder="Material, corte, detalles…"
+          placeholder="Detalles del producto (material, aroma, edición, etc.)…"
           className={inputCls}
         />
       </Field>
@@ -79,18 +79,18 @@ export default function ProductForm({ mode, action, product }: Props) {
           <input
             name="category"
             defaultValue={product?.category ?? ""}
-            placeholder="Playeras, Pantalones…"
+            placeholder="Ropa, Perfumes, Coleccionables…"
             className={inputCls}
           />
         </Field>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Tallas (separadas por coma)">
+        <Field label="Variantes / opciones (opcional)">
           <input
             name="sizes"
             defaultValue={product?.sizes.join(", ")}
-            placeholder="S, M, L, XL"
+            placeholder="Ropa: S, M, L · Perfume: 50 ml, 100 ml · si no aplica, déjalo vacío"
             className={inputCls}
           />
         </Field>

@@ -80,7 +80,9 @@ export default async function HomePage({
               </h2>
               <p className="mt-1 text-sm text-zinc-500">
                 {products.length}{" "}
-                {products.length === 1 ? "prenda disponible" : "prendas disponibles"}
+                {products.length === 1
+                  ? "producto disponible"
+                  : "productos disponibles"}
               </p>
             </div>
           </div>
