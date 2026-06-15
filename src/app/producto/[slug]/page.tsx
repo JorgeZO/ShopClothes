@@ -121,7 +121,7 @@ export default async function ProductPage({
                 <div>
                   <p className="text-lg">✨</p>
                   <p className="mt-1 text-xs font-medium text-zinc-600">
-                    Prendas con cariño
+                    Calidad garantizada
                   </p>
                 </div>
               </div>
